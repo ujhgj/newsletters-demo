@@ -1,0 +1,17 @@
+{% extends 'bootstrap.html.twig' %}
+
+{% block name %}Create Newsletter{% endblock %}
+
+{% block body %}
+    <form action="/" method="post">
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Title</label>
+            <input class="form-control" id="exampleFormControlInput1" name="title">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Text</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" name="text" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'bootstrap.html.twig' %}
+
+{% block name %}Reports{% endblock %}
+
+{% block body %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Pending</th>
+            <th scope="col">Success</th>
+            <th scope="col">Fail</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for newsletter in newsletters %}
+        <tr>
+            <th scope="row">{{ newsletter.id }}</th>
+            <td>{{ newsletter.title }}</td>
+            <td>{{ newsletter.pending }}</td>
+            <td>{{ newsletter.success }}</td>
+            <td>{{ newsletter.fail }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

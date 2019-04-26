@@ -1,0 +1,7 @@
+index:
+  path: /
+  controller: App\Controller\AppController::index
+
+reports:
+  path: /reports
+  controller: App\Controller\AppController::reports
