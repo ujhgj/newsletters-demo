@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+
+  nginx:
+    image: nginx:1.15.8-alpine
+    ports:
+    - 80:80
+    depends_on:
+    - php-fpm
+
+  php-fpm:
+    command: php-fpm
+
+  sender:
+    command: bin/console send
+
+  cron:
+    environment:
+      CRON_CONFIG: /opt/app/deploy/configs/cron
+    command: cron
+
+  mysql:
+    image: mysql:5.6
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"

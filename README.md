@@ -13,3 +13,9 @@ Worker отправки писем запускается командой:
 
     bin/console report 
     
+Требования: Mysql5.6
+
+Для создания базы данных и применения миграций запустить:
+
+    bin/console doctrine:database:create
+    bin/console doctrine:migrations:migrate 

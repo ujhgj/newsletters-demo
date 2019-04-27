@@ -1,0 +1,50 @@
+version: "3.7"
+
+services:
+
+  nginx:
+    image: nginx:1.15.8-alpine
+    ports:
+    - 80:80
+    volumes:
+    - .:/opt/app:cached
+    - ./deploy/configs/newsletters-demo.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+    - php-fpm
+    restart: unless-stopped
+
+  php-fpm:
+    image: devimage
+    build: &dev_image
+      dockerfile: deploy/dev/Dockerfile
+      context: .
+    volumes:
+    - .:/opt/app:cached
+    - /opt/skyeng/.composer_docker:/home/www-data/.composer:cached
+    command: php-fpm
+    restart: unless-stopped
+
+  sender:
+    image: devimage
+    build: *dev_image
+    volumes:
+    - .:/opt/app:cached
+    command: bin/console send
+    restart: unless-stopped
+
+  cron:
+    image: devimage
+    user: root
+    build: *dev_image
+    volumes:
+    - .:/opt/app:cached
+    environment:
+      CRON_CONFIG: /opt/app/deploy/configs/cron
+    command: cron
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:5.6
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    restart: unless-stopped
